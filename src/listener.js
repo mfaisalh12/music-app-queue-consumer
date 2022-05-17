@@ -18,12 +18,17 @@ class Listener {
 				performer: song.performer,
 			}));
 			const playlistProps = playlists.map((playlist) => ({
-				id: playlist.playlist_id,
-				name: playlist.name,
-				songs: songProps,
+				playlists: {
+					id: playlist.playlist_id,
+					name: playlist.name,
+					songs: songProps,
+				},
 			}));
 
-			const result = await this._mailSender.sendEmail(targetEmail, JSON.stringify(playlistProps));
+			const result = await this._mailSender.sendEmail(
+				targetEmail,
+				JSON.stringify(playlistProps[0]),
+			);
 			console.log(result);
 		} catch (error) {
 			console.error(error);
